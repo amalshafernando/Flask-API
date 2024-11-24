@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Resource, Api, reqparse, fields, marshal_with, abort
 
@@ -73,8 +73,10 @@ api.add_resource(Users, '/greet/')
 api.add_resource(User, '/greet/<int:id>')
 
 @app.route('/')
-def hello():
-    return '<h1>Hello! Flask Rest API</h1>'
+def index():
+    users = UserModel.query.all()
+    return render_template('index.html', User=User)
+
 
 #run the app on localhost and 5000
 if __name__ == '__main__':
